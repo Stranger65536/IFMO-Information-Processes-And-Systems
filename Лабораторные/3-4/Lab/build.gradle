@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+group = 'ru.ifmo.itip.trofiv'
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+jar {
+    baseName = 'CancerAssemble'
+    version = '1.0'
+    manifest {
+        attributes 'Main-Class': 'ru.ifmo.cancerassemble.Main'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    compile(
+            [group: 'jfree', name: 'jfreechart', version: '1.0.13'],
+            [group: 'com.google.guava', name: 'guava', version: '18.0'],
+            [group: 'org.projectlombok', name: 'lombok', version: '1.16.8'],
+            [group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: '3.6.12']
+    )
+}
